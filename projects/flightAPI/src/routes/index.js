@@ -5,7 +5,7 @@
 const router = require('express').Router()
 /* ------------------------------------------------------- */
 // auth route
-router.use("auth", require("./auth"))
+router.use("/auth",require("./auth"))
 // user route
 router.use("/users",require("./user"))
 

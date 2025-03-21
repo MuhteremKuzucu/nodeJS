@@ -8,7 +8,6 @@ const passwordEncrypt = require("../helpers/passwordEncrypt")
 const User=require("../models/user")
 
 module.exports={
-
     login:async(req,res)=>{
           /*
                 #swagger.tags = ["Authentication"]
@@ -24,38 +23,38 @@ module.exports={
                 }
             */
 
-        const {username, email, password}=req.body
+        const {username,email,password}=req.body
 
-        if(!(username || email) && password) {
+        if (!(username || email) && password ){
             res.errorStatusCode=401
-            throw new Error('username/email and password are required.');
+            throw new Error("username/email and password are required")
         }
 
-        const user= await User.findOne({ $or: [{username},{email}]})
+        const user=await User.findOne({$or: [{username},{email}]})
 
         if (user?.password !== passwordEncrypt(password)){
-            res.errorStatusCode = 401;
-            throw new Error('Incorrect email/username and password.');
+            res.errorStatusCode=401
+            throw new Error("incorrect username/email or password")
+        }
+        
+        if (!user.isActive){
+            res.errorStatusCode=401
+            throw new Error("This account is not active")
         }
 
-        if (!user.isActive) {
-            res.errorStatusCode = 401;
-            throw new Error('This account is not active.');
-        }
-
-        /* --------------------------------------------------------- */ 
-        /*                     JWT
-        /* --------------------------------------------------------- */
+        /* -------------------------------------------------------------------------- */
+        /*                                     JWT                                    */
+        /* -------------------------------------------------------------------------- */
         // Access Token
         const accessData={
             _id:user._id,
-            username: user.username,
-            email: user.email,
+            username:user.username,
+            email:user.email,
             isActive:user.isActive,
             isAdmin:user.isAdmin
         }
 
-        // Convert JWT
+        // Convert JWT 
         const accessToken=jwt.sign(accessData,process.env.ACCESS_KEY,{expiresIn:'30m'})
 
         res.status(200).send({
@@ -66,12 +65,13 @@ module.exports={
         })
     },
 
-    logout:async(req, res)=>{
+    // todo:  REFRESH 
+    logout:async(req,res)=>{
         res.send({
-            error: false,
-            message: "JWT : no need any process"
+            error:false,
+            message:"JWT : no need any process"
         })
     }
-
+    
 }
 
