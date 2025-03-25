@@ -54,7 +54,7 @@ module.exports = {
             in:"body",
             require:true,
             schema:{
-            "username": "test",
+            "username": {type:String, example:"test"},
             "password": "1234",
             "email": "test@site.com",
             "isActive": true,
@@ -145,4 +145,5 @@ module.exports = {
   }
 
 };
+
 

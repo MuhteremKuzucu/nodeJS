@@ -8,6 +8,7 @@ const auth=require("../controllers/auth")
 /* ------------------------------------------------------- */
 
 router.route("/login").post(auth.login)
+router.route("/refresh").post(auth.refresh)
 router.route("/logout").get(auth.logout)
 
 /* ------------------------------------------------------- */
