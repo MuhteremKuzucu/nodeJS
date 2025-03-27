@@ -37,7 +37,7 @@ const CarSchema = new mongoose.Schema(
     plateNumber:{
       type:String,
       trim:true,
-      unique: true,
+      unique:true,
       required:true
     },
     brand:{
@@ -59,32 +59,31 @@ const CarSchema = new mongoose.Schema(
     },
     isAutomatic:{
       type:Boolean,
-      default:false
+      default:false      
     },
     pricePerDay:{
       type:Number,
-      required:true
+      required:true     
     },
-    isAvaible:{
+    isAvailable:{
       type:Boolean,
-      default:false
+      default:false  
     },
     images:{
       type:[String],
       default:[]
     },
-    createdAtId:{
+    createdId:{
       type:mongoose.Schema.Types.ObjectId,
       ref:"User",
       required:true
     },
-    updatedAtId:{
+    updatedId:{
       type:mongoose.Schema.Types.ObjectId,
       ref:"User",
       required:true
     }
-
-  },
+    },
   {
     collection: "cars",
     timestamps: true,

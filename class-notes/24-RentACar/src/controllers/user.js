@@ -38,7 +38,7 @@ module.exports = {
                 in: 'body',
                 required: true,
                 schema: {
-                    $ref:"#/definitions/User"
+                  $ref:"#/definitions/User"
                 }
             }
         */
@@ -62,8 +62,8 @@ module.exports = {
     //     req.params.id = req.user.id
     // }
     // const data = await User.findOne({ _id: req.params.id })
-    
-    // Shorthand admin permission
+
+    // Shorthand - admin permission
     const id = req.user.isAdmin ? req.params.id : req.user.id;
     const data = await User.findOne({ _id: id });
 
@@ -92,7 +92,8 @@ module.exports = {
         */
 
     //? Yetkisiz kullanıcının başka bir kullanıcıyı yönetmesini engelle (sadece kendi verileri):
-    if (!req.user.isAdmin) req.params.id = req.user._id;
+    if (!req.user.isAdmin){ req.params.id = req.user._id;}   // başkalarının bilgillerini araştırma kendi bilgine bak
+
     const data = await User.updateOne({ _id: req.params.id }, req.body, {
       runValidators: true,
     });

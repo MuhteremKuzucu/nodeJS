@@ -15,7 +15,7 @@
 const { mongoose } = require("../configs/dbConnection");
 const passwordEncrypt = require("../helpers/passwordEncrypt");
 const uniqueValidator = require("mongoose-unique-validator");
-const emailValidation = require("../helpers/emailValidation")
+const emailValidation=require("../helpers/emailValidation")
 // User Model:
 const UserSchema = new mongoose.Schema(
   {
@@ -31,16 +31,15 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       required: true,
       set: (password) => passwordEncrypt(password),
-      // select:false
+      select:false
     },
 
     email: {
       type: String,
       trim: true,
       required: [true, "An Email address is required"],
-      unique: true, 
-      validate: [
-        (email) =>emailValidation(email),"Email format is not valid"],
+      unique: true, // mongodb uniqe veriler için kendi mesajını gönderir
+      validate: [(email) =>emailValidation(email),"Email format is not valid"],
     },
 
     isActive: {

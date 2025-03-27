@@ -3,12 +3,6 @@
     | FULLSTACK TEAM | NODEJS / EXPRESS |
 ------------------------------------------------------- */
 
-// "username": "test",
-// "password": "1234",
-// "email": "test@site.com",
-// "isActive": true,
-// "isStaff": false,
-// "isAdmin": false,
 
 // Reservation Controller:
 
@@ -28,11 +22,11 @@ module.exports = {
                 </ul>
             `
         */
-    
 
+    //Customer sadece kendi rezervasyonunu görsün, Bütün rezervasyonları is Admin ve staff görmeli
     let customFilter={}
 
-    if(!req.user.isAdmin || !req.user.isStaff) customFilter={userId:req.user._id}
+    if (!req.user.isAdmin || !req.user.isStaff ) customFilter={userId:req.user._id}
 
     const data = await res.getModelList(Reservation,customFilter);
 
@@ -51,11 +45,14 @@ module.exports = {
                 in: 'body',
                 required: true,
                 schema: {
+
+
                 $ref:"#/definitions/Reservation"
+                 
                 }
             }
         */
-   
+ 
     const data = await Reservation.create(req.body);
 
     res.status(201).send({
@@ -70,8 +67,7 @@ module.exports = {
             #swagger.summary = "Get Single Reservation"
         */
 
-   
-    const data = await Reservation.findOne({ _id: req.params._id });
+    const data = await Reservation.findOne({ _id: req.params._id});
 
     res.status(200).send({
       error: false,
@@ -97,7 +93,6 @@ module.exports = {
             }
         */
 
-   
     const data = await Reservation.updateOne({ _id: req.params.id }, req.body, {
       runValidators: true,
     });
@@ -123,4 +118,3 @@ module.exports = {
     });
   },
 };
-

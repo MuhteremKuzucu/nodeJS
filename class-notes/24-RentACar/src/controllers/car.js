@@ -3,12 +3,6 @@
     | FULLSTACK TEAM | NODEJS / EXPRESS |
 ------------------------------------------------------- */
 
-// "username": "test",
-// "password": "1234",
-// "email": "test@site.com",
-// "isActive": true,
-// "isStaff": false,
-// "isAdmin": false,
 
 // Car Controller:
 
@@ -28,17 +22,16 @@ module.exports = {
                 </ul>
             `
         */
-    
 
-    let customFilter = {isAvaible:true}
+    let customFilter={isAvailable:true} // customer ise sadece available olanları getir.
 
-    if (req.user.isAdmin || req.user.isStaff) {customFilter= {}}
+    if (req.user.isAdmin || req.user.isStaff)  customFilter = {}  // Admin veya staf ise bütün verileri getir
 
     const data = await res.getModelList(Car,customFilter);
 
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails(Car),
+      details: await res.getModelListDetails(Car,customFilter),
       data,
     });
   },
@@ -51,11 +44,14 @@ module.exports = {
                 in: 'body',
                 required: true,
                 schema: {
+
+
                 $ref:"#/definitions/Car"
+                 
                 }
             }
         */
-   
+ 
     const data = await Car.create(req.body);
 
     res.status(201).send({
@@ -70,8 +66,7 @@ module.exports = {
             #swagger.summary = "Get Single Car"
         */
 
-   
-    const data = await Car.findOne({ _id: req.params._id });
+    const data = await Car.findOne({ _id: req.params._id});
 
     res.status(200).send({
       error: false,
@@ -97,7 +92,6 @@ module.exports = {
             }
         */
 
-   
     const data = await Car.updateOne({ _id: req.params.id }, req.body, {
       runValidators: true,
     });
@@ -123,4 +117,3 @@ module.exports = {
     });
   },
 };
-

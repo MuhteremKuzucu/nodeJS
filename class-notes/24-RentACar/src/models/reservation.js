@@ -28,7 +28,7 @@ const ReservationSchema = new mongoose.Schema(
     },
     carId:{
       type:mongoose.Schema.Types.ObjectId,
-      ref:"Cser",
+      ref:"Car",
       required:true
     },
     startDate:{
@@ -38,7 +38,7 @@ const ReservationSchema = new mongoose.Schema(
     endDate:{
       type:Date,
       required:true
-    },
+    }
   },
   {
     collection: "reservations",
@@ -47,15 +47,15 @@ const ReservationSchema = new mongoose.Schema(
 );
 
 // Export:
-// Aşagıdaki işlem verileri döndürürken bazı düzenlemler yapmamızı saglar
+// Aşağıdaki işlem verileri dönderirken bazı düzenlemleer yapmamızı sağlar
 
-ReservationSchema.set("toJSON", {
-  transform: (doc, ret) => {
-    ret.id = ret._id;
-    ret.startDate = dateToLocaleString(ret.startDate);
-    delete ret._id;
-    delete ret.__v;
-  },
-});
+// ReservationSchema.set("toJSON", {
+//   transform: (doc, ret) => {
+//     ret.id = ret._id;
+    // ret.startDate = dateToLocaleString(ret.startDate);
+    // delete ret._id;
+    // delete ret.__v;
+//   },
+// });
 
 module.exports = mongoose.model("Reservation", ReservationSchema);

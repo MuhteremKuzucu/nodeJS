@@ -66,5 +66,5 @@ app.use(require("./src/middlewares/errorHandler"));
 app.listen(PORT, HOST, () => console.log(`http://${HOST}:${PORT}`));
 
 /* ------------------------------------------------------- */
-//Syncronization (must be in commentLine):
-//require('./src/helpers/sync')()
+// Syncronization (must be in commentLine):
+// require('./src/helpers/sync')()
