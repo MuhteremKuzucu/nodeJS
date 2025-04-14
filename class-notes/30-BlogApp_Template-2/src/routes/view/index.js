@@ -15,4 +15,7 @@ router.use("/post", require("./blogPostRoute"));
 // user:
 router.use("/user", require("./userRoute"));
 
+// AuthRoute
+router.use("/", require("./authRoute"));
+
 module.exports = router;
